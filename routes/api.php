@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/***
+ * GET
+ * Получение всех постов из DB
+ * URI: {host}/api/articles
+ */
+Route::get('/articles', [ArticleController::class, 'showArticles']);
+
+/***
+ * GET
+ * Получение одного поста
+ * URI: {host}/api/articles/{id}
+ */
+Route::get('/articles/{id}', [ArticleController::class, 'showArticle']);
