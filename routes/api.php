@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\ArticlesController;
+use App\Http\Controllers\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,11 +25,27 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * Получение всех постов из DB
  * URI: {host}/api/articles
  */
-Route::get('/articles', [ArticleController::class, 'showArticles']);
+Route::get('/articles', [ArticlesController::class, 'showArticles']);
 
 /***
  * GET
  * Получение одного поста
  * URI: {host}/api/articles/{id}
  */
-Route::get('/articles/{id}', [ArticleController::class, 'showArticle']);
+Route::get('/articles/{id}', [ArticlesController::class, 'showArticle']);
+
+
+/***
+ * Homework
+ * GET
+ * Получение всех товаров из DB
+ */
+Route::get('/products', [ProductsController::class, 'showProducts']);
+
+/***
+ * Homework
+ * GET
+ * Получение одного товара
+ * URI: {host}/api/products/{id}
+ */
+Route::get('/products/{id}', [ProductsController::class, 'showProduct']);
