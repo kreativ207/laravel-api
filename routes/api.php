@@ -34,6 +34,14 @@ Route::get('/articles', [ArticlesController::class, 'showArticles']);
  */
 Route::get('/articles/{id}', [ArticlesController::class, 'showArticle']);
 
+/***
+ *POST
+ * Запись поста в DB
+ * URI: {host}/api/articles
+ */
+
+Route::post('/articles', [ArticlesController::class, 'storeArticle']);
+
 
 /***
  * Homework
