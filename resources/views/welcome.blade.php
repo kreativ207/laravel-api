@@ -35,6 +35,23 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <form>
+            <div class="mb-3">
+                <label for="title" class="form-label">Article title</label>
+                <input type="text" class="form-control" id="title-form-article">
+                <div class="alert alert-danger mt-2 d-none" role="alert" id="error-title-form-article">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Article content</label>
+                <textarea type="text" class="form-control" id="content-form-article" rows="3"></textarea>
+                <div class="alert alert-danger mt-2 d-none" role="alert" id="error-content-form-article">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success" onclick="storeArticle()">Add</button>
+        </form>
+    </div>
 
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
@@ -80,6 +97,7 @@
             }
         }
     });
+
     function showArticle(id) {
         $.ajax({
             url: '/api/articles/' + id,
@@ -89,6 +107,48 @@
                 $('.article-title').text(data.title);
                 $('.article-content').text(data.content);
                 $('.full-article').removeClass('d-none');
+            }
+        });
+    }
+
+    function storeArticle() {
+        const title = $('#title-form-article'),
+                content = $('#content-form-article');
+
+        $('#error-title-form-article').addClass('d-none');
+        $('#error-content-form-article').addClass('d-none');
+
+        $.ajax({
+            url: '/api/articles',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                title: title.val(),
+                content: content.val()
+            },
+            error(err) {
+
+                const data = err.responseJSON;
+                for (let key in err.responseJSON.errors) {
+                    let error_text = err.responseJSON.errors[key][0];
+                    $(`#error-${key}-form-article`).removeClass('d-none').text(error_text);
+                }
+            },
+            success(data) {
+                title.val('');
+                content.val('');
+
+                $('.articles').append(`
+                <div class="col-sm-6 mb-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${data.article.title}</h5>
+                                <p class="card-text">${data.article.content.slice(0, 20)}...</p>
+                                <a href="#" class="btn btn-primary" onclick="showArticle(${data.article.id})">Show</a>
+                            </div>
+                        </div>
+                    </div>
+                `)
             }
         });
     }

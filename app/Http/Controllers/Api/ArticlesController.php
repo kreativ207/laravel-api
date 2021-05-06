@@ -39,7 +39,7 @@ class ArticlesController extends Controller
         if($validator_status->fails()) {
             return response()->json([
                 'status' => false,
-                'article' => $validator_status->messages()
+                'errors' => $validator_status->messages()
             ])->setStatusCode('422');
         }
 

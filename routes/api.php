@@ -57,3 +57,11 @@ Route::get('/products', [ProductsController::class, 'showProducts']);
  * URI: {host}/api/products/{id}
  */
 Route::get('/products/{id}', [ProductsController::class, 'showProduct']);
+
+/***
+ * Homework
+ * POST
+ * Запись товара в DB
+ * URI: {host}/api/articles
+ */
+Route::post('/products', [ProductsController::class, 'storeProduct']);
