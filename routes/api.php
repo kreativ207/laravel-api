@@ -39,9 +39,21 @@ Route::get('/articles/{id}', [ArticlesController::class, 'showArticle']);
  * Запись поста в DB
  * URI: {host}/api/articles
  */
-
 Route::post('/articles', [ArticlesController::class, 'storeArticle']);
 
+/***
+ * PUT
+ * Изминение поста в DB
+ * URI: {host}/api/articles/{id}
+ */
+Route::put('/articles/{id}', [ArticlesController::class, 'putArticles']);
+
+/***
+ * PATCH
+ * Изминение поста в DB
+ * URI: {host}/api/articles/{id}
+ */
+Route::patch('/articles/{id}', [ArticlesController::class, 'patchArticles']);
 
 /***
  * Homework
