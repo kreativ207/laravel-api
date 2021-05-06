@@ -43,9 +43,10 @@ class ArticlesController extends Controller
             ])->setStatusCode('422');
         }
 
+        $content = "content";
         $article = Article::create([
             "title" => $request->title,
-            "content" => $request->content,
+            "content" => $request->$content,
         ]);
 
         return response()->json([
