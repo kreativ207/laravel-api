@@ -95,7 +95,7 @@ class ArticlesController extends Controller
             return response()->json([
                 'status' => false,
                 'errors' => $validator_status->messages()
-            ])->setStatusCode('422');
+            ])->setStatusCode(422);
         }
 
         $article = Article::find($id);
@@ -103,9 +103,26 @@ class ArticlesController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => "Article not found"
-            ])->setStatusCode('404', "Article not found");
+            ])->setStatusCode(404, "Article not found");
         }
         return $this->patchUpdateArticle($article, $request_data);
+    }
+
+    public function deleteArticles($id)
+    {
+        $article = Article::find($id);
+        if(!$article) {
+            return response()->json([
+                'status' => false,
+                'message' => "Article not found"
+            ])->setStatusCode(404, "Article not found");
+        }
+        $article->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => "Article is delete"
+        ])->setStatusCode(200, "Article is delete");
     }
 
     public function patchUpdateArticle($article, $request_data)
@@ -119,7 +136,7 @@ class ArticlesController extends Controller
         return response()->json([
             'status' => true,
             'message' => "Article is update"
-        ])->setStatusCode('200', "Article is update");
+        ])->setStatusCode(200, "Article is update");
     }
 
     public function patchValidateArticles($request_data)
@@ -151,7 +168,7 @@ class ArticlesController extends Controller
         return response()->json([
             'status' => true,
             'message' => "Article is update"
-        ])->setStatusCode('200', "Article is update");
+        ])->setStatusCode(200, "Article is update");
     }
 
     public function validateStoreArticle($request_data)

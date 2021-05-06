@@ -56,6 +56,13 @@ Route::put('/articles/{id}', [ArticlesController::class, 'putArticles']);
 Route::patch('/articles/{id}', [ArticlesController::class, 'patchArticles']);
 
 /***
+ * DELETE
+ * Удаление поста в DB
+ * URI: {host}/api/articles/{id}
+ */
+Route::delete('/articles/{id}', [ArticlesController::class, 'deleteArticles']);
+
+/***
  * Homework
  * GET
  * Получение всех товаров из DB
